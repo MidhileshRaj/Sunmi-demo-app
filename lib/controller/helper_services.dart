@@ -21,4 +21,5 @@ class HelperServices {
    var value =preferences.getBool("isConfigured")??false;
    return value;
  }
+
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sunmi_app_demo/controller/configuration_page_controller.dart';
 import 'package:sunmi_app_demo/controller/helper_services.dart';
+import 'package:sunmi_app_demo/screens/get_item_details.dart';
 import 'package:sunmi_app_demo/utils/widgets/button_widget.dart';
 
 import '../utils/widgets/custom_text_field_design.dart';
-import 'barcode_generator_page.dart';
 
 class ConfigurationScreen extends StatelessWidget {
   const ConfigurationScreen({super.key});
@@ -67,17 +67,12 @@ class ConfigurationScreen extends StatelessWidget {
                     ButtonWidget(
                       text: "Configure",
                       onClicked: () async {
-                        await HelperServices.saveServerData(
-                            "server", value.serverNameController.text);
-                        await HelperServices.saveServerData(
-                            "database",value. dataBaseNameController.text);
-                        await HelperServices.saveServerData("table",value. tableName.text);
-                        await HelperServices.setConfiguration(true);
+Provider.of<ConfigurationPageController>(context,listen: false).saveConfiguration();
                         if (!context.mounted) return;
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const BarcodeGeneratorPage(),
+                              builder: (context) => const GetItemDetails(),
                             ));
                       },
                     ),SizedBox(width: 20,),ButtonWidget(
