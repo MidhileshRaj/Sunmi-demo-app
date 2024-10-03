@@ -44,12 +44,19 @@ class PdfViewerScreen extends StatelessWidget {
 
   void _printPdf(String filePath) async {
     // Load the PDF file as bytes
-    final file = File(filePath);
-    final pdfBytes = await file.readAsBytes();
+    try {
+      // Load the PDF file
+      final file = File(filePath);
 
-    // Print the PDF document
-    await Printing.layoutPdf(
-      onLayout: (PdfPageFormat format) async => pdfBytes,
-    );
+      // Print the PDF document with proper layout handling
+      await Printing.layoutPdf(
+        onLayout: (PdfPageFormat format) async {
+          final pdfBytes = await file.readAsBytes();
+          return pdfBytes;
+        },
+      );
+    } catch (e) {
+      print("Error printing PDF: $e");
+    }
   }
 }
